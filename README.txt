@@ -43,6 +43,7 @@ Department Filtering
 *	supports single negated value - Excludes this department and shows all others. (example: departmentfilter="-Value3")
 
 Hiding Forms
+
 *	If you don't want application forms to show up and simply want to display listings, simply add the hideforms attribute
 *	ex. [greenhouse hideforms="true"]
 
