@@ -6,7 +6,7 @@
  * This file is used to markup the public-facing aspects of the plugin.
  *
  * @link       http://example.com
- * @since      1.3.0
+ * @since      1.4.0
  *
  * @package    Greenhouse_Job_Board
  * @subpackage Greenhouse_Job_Board/public/partials
@@ -62,6 +62,24 @@ function greenhouse_job_board_apply_now_render(  ) {
 	}
 	?>'>
 	<div class="helper">Set the text for your `Apply Now` button.</div>
+	<?php
+
+}
+
+
+function greenhouse_job_board_apply_now_cancel_render(  ) { 
+
+	$options = get_option( 'greenhouse_job_board_settings' );
+	?>
+	<input type='text' name='greenhouse_job_board_settings[greenhouse_job_board_apply_now_cancel]' value='<?php 
+	if ( !$options['greenhouse_job_board_apply_now_cancel'] ) { // Nothing yet saved
+		echo 'Cancel'; 
+	}
+	else {
+		echo $options['greenhouse_job_board_apply_now_cancel']; 
+	}
+	?>'>
+	<div class="helper">Set the text for your `Cancel` button.</div>
 	<?php
 
 }

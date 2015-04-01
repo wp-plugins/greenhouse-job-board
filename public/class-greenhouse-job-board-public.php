@@ -112,7 +112,7 @@ class Greenhouse_Job_Board_Public {
 	/**
 	 * Handle the main [greenhouse] shortcode.
 	 *
-	 * @since    1.3.0
+	 * @since    1.4.0
 	 */
 	public function greenhouse_shortcode_function( $atts, $content = null ) {
 		$options = get_option( 'greenhouse_job_board_settings' );
@@ -121,6 +121,7 @@ class Greenhouse_Job_Board_Public {
 	        'url_token' 		=> $options['greenhouse_job_board_url_token'],
 	        'api_key' 			=> $options['greenhouse_job_board_api_key'],
 	        'apply_now'			=> $options['greenhouse_job_board_apply_now'] ? $options['greenhouse_job_board_apply_now'] : 'Apply Now',
+	        'apply_now_cancel'	=> $options['greenhouse_job_board_apply_now_cancel'] ? $options['greenhouse_job_board_apply_now_cancel'] : 'Cancel',
 	        'read_full_desc'	=> $options['greenhouse_job_board_read_full_desc'] ? $options['greenhouse_job_board_read_full_desc'] : 'Read Full Description',
 	        'hide_full_desc'	=> $options['greenhouse_job_board_hide_full_desc'] ? $options['greenhouse_job_board_hide_full_desc'] : 'Hide Full Description',
 	        'hide_forms'		=> 'false',
@@ -156,9 +157,9 @@ class Greenhouse_Job_Board_Public {
 			data-id="{{id}}" 
 			data-departments="{{departments}}">
 	 	    	<h2 class="job_title">{{title}}</h2>
-	 	    	<div class="job_read_full" data-toggle-text="' . $atts['hide_full_desc'] . '">' . $atts['read_full_desc'] . '</div>
+	 	    	<p><a href="#" class="job_read_full" data-opened-text="' . $atts['hide_full_desc'] . '" data-closed-text="' . $atts['read_full_desc'] . '">' . $atts['read_full_desc'] . '</a></p>
 	 	    	<div class="job_description job_description_{{id}}">{{{content}}}</div>
-	 	    	{{#ifeq hide_forms "false"}}<div class="job_apply job_apply_{{id}}">' . $atts['apply_now'] . '</div>{{/ifeq}}
+	 	    	{{#ifeq hide_forms "false"}}<p><a href="#" class="job_apply job_apply_{{id}}" data-opened-text="' . $atts['apply_now_cancel'] . '" data-closed-text="' . $atts['apply_now'] . '">' . $atts['apply_now'] . '</a></p>{{/ifeq}}
 	 	</div>
 </script>';
 
@@ -235,6 +236,14 @@ class Greenhouse_Job_Board_Public {
 			'greenhouse_job_board_apply_now', 
 			__( 'Apply Now Text', 'greenhouse_job_board' ), 
 			'greenhouse_job_board_apply_now_render', 
+			'greenhouse_settings', 
+			'greenhouse_job_board_greenhouse_settings_section' 
+		);
+
+		add_settings_field( 
+			'greenhouse_job_board_apply_now_cancel', 
+			__( 'Apply Now Cancel Text', 'greenhouse_job_board' ), 
+			'greenhouse_job_board_apply_now_cancel_render', 
 			'greenhouse_settings', 
 			'greenhouse_job_board_greenhouse_settings_section' 
 		);
