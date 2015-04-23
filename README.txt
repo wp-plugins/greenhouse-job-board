@@ -3,8 +3,8 @@ Contributors: brownbagmarketing
 Donate link: https://www.brownbagmarketing.com/
 Tags: greenhouse, job board, api, resume
 Requires at least: 3.0.1
-Tested up to: 4.1.1
-Stable tag: 1.4.0
+Tested up to: 4.1.2
+Stable tag: 1.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,12 +17,12 @@ Plugin to pull a job board from greenhouse.io via their API and display it on yo
 Requirements:
 
 *	Must have a greenhouse account.
-*	Know your URL Token
+*	Know your URL Token.
 
 Initial Setup:
 
-*	For ease of use, setup your URL Token within Settings->Greenhouse Job Board Settings. (NOTE that you can also set this inline within a shortcode)
-*	API Key can also be set, but is not yet supported.
+*	For ease of use, setup your URL Token within Settings->Greenhouse. (NOTE: you can also set this inline with shortcode attributes.)
+*	Add shortcode or use the wizard to add a job board to any page or post.
 
 Know the code!
 
@@ -85,6 +85,12 @@ e.g.
 
 == Changelog ==
 
+= 1.5 =
+* Adding add job board media button and wizard to help construct your shortcode.
+* Bug fixes - compatability with ACF Pro.
+* Bug fixes - unexpected output.
+* Updates - requiring a url_token with user feedback on error.
+
 = 1.4 =
 * Adding support for location filter (include and exclude).
 * Adding support for office filter by name/title or id(include and exclude).
@@ -108,10 +114,11 @@ e.g.
 
 == Screenshots ==
 
-1. Shortcode in action.
+1. Shortcode in action. Notice the 'Add Greenhouse Job Board' button.
 2. View the job board list.
 3. Click to view description of each job.
 4. Click to apply for each job.
+5. View the 'Add Greenhosuse Job Board' button modal wizard. This will allow you to easily configure your board with all the settings. It will insert the configured shortcode into the content editor.
 
 
 == Frequently Asked Questions ==
