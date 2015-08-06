@@ -105,7 +105,7 @@ class Greenhouse_Job_Board_Admin {
 	/**
 	 * Add the shortcodes media button.
 	 *
-	 * @since    1.6.0
+	 * @since    1.7.0
 	 */
 	public function greenhouse_add_shortcode_media_button() {
 		add_thickbox();
@@ -126,7 +126,8 @@ class Greenhouse_Job_Board_Admin {
 				<div class="section">
 					<p>Use these settings to customize your short code settings and then insert your shortcode into your content.</p>
 				</div>
-				<div class="section">
+				
+				<!--<div class="section">
 					<label>
 						<input type="checkbox" class="include" data-include="url_token" />Include URL token to override <a href="$greenhouse_settings_url">plugin settings</a>?
 					</label>
@@ -135,9 +136,9 @@ class Greenhouse_Job_Board_Admin {
 							<input id="url_token" type="text" />
 						</label>
 					</div>
-				</div>
+				</div>-->
 				
-				<div class="section">
+				<!--<div class="section">
 					<label>
 						<input type="checkbox" class="include" data-include="api_key" />Include API Key to override <a href="$greenhouse_settings_url">plugin settings</a>?
 					</label>
@@ -146,7 +147,7 @@ class Greenhouse_Job_Board_Admin {
 							<input id="api_key" type="text" />
 						</label>
 					</div>
-				</div>
+				</div>-->
 				
 				<div class="section">
 					<label>
@@ -199,8 +200,20 @@ class Greenhouse_Job_Board_Admin {
 				
 					<div class="section section_display_form">
 						<label>
-							<input type="checkbox" id="form_type" disabled="disabled" checked />Use embedded iFrame Forms?
+							<select id="form_type">
+								<option value="default" selected>Use default setting</option>
+								<option value="iframe">Embed iFrame forms</option>
+								<option value="inline">Inline dynamic forms</option>
+							</select>
 						</label>
+					
+						<div class="section section_display_form section_form_fields" style="display:none;">
+							<label for="form_fields">Form Fields
+								<input id="form_fields" type="text" />
+							</label>
+							<div class="help_text">Pipe '|' delimeted. For example: First Name|Email (leave blank to display all fields).</div>
+						</div>
+						
 					</div>
 					
 				</div>
