@@ -125,6 +125,7 @@ class Greenhouse_Job_Board_Public {
 		$options = get_option( 'greenhouse_job_board_settings' );
 		
 	    $atts = shortcode_atts( array(
+	    	'id'				=> '',
 	        'url_token' 		=> isset( $options['greenhouse_job_board_url_token'] ) ? $options['greenhouse_job_board_url_token'] : '',
 	        'api_key' 			=> isset( $options['greenhouse_job_board_api_key'] ) ? $options['greenhouse_job_board_api_key'] : '',
 	        'board_type' 		=> isset( $options['greenhouse_job_board_type'] ) ? $options['greenhouse_job_board_type'] : 'accordion',
@@ -146,19 +147,31 @@ class Greenhouse_Job_Board_Public {
 	        'description_label'	=> isset( $options['greenhouse_job_board_description_label'] ) ? $options['greenhouse_job_board_description_label'] : '',
 	        'display'			=> isset( $options['display'] ) ? $options['display'] : 'description',
 	    ), $atts );
+
+		STATIC $shortcode_id = 0;
+		$shortcode_id++;
+		
+		
+		if ( $atts['id'] === '' ) {
+			$jbid = $shortcode_id;
+		}
+		else {
+			$jbid = $atts['id'];
+		}
 	    
 	    //sanitize values
 	    //if hide_forms is anything other than true, set it to false
 	    if ( $atts['hide_forms'] !== 'true' ) {
 	    	$atts['hide_forms'] = 'false';
 	    }
-	    //reset form_type until set up for more types
-	    // if ( $atts['form_type'] !== 'iframe' ) {
-	    // 	$atts['form_type'] = 'iframe';
-	    // }
+	    //set form_type 
+	    if ( $atts['form_type'] === 'default' ) {
+	    	$atts['form_type'] = '';
+	    }
 	    
 	    
 		$ghjb_html  = '<div class="greenhouse-job-board" 
+			id="greenhouse-job-board_' . $jbid . '" 
 			data-type="' . $atts['board_type'] . '" 
 			data-form_type="' . $atts['form_type'] . '">';
 		
@@ -261,7 +274,7 @@ class Greenhouse_Job_Board_Public {
 		if ( $atts['hide_forms'] !== '') {
 			$ghjb_html .=	' data-hide_forms="' . $atts['hide_forms'] . '" ';
 		}
-		if ( $atts['form_type'] !== '') {
+		if ( $atts['form_type'] !== '' ) {
 			$ghjb_html .=	' data-form_type="' . $atts['form_type'] . '" ';
 		}
 		if ( $atts['form_fields'] != '' && 
@@ -325,9 +338,10 @@ class Greenhouse_Job_Board_Public {
 		$ghjb_html .= '</div>';
 		
 		// Get any existing copy of our transient data
+		// transients can be saved for multiple shortcode uses since it stores the full api return and nothing is filtered until it hits our js.
 		// http://www.tailored4wp.com/get-a-better-performance-with-wordpress-transients-api-501/
-		delete_transient( 'ghjb_json' );
-		delete_transient( 'ghjb_jobs' );
+		// delete_transient( 'ghjb_json' );
+		// delete_transient( 'ghjb_jobs' );
 		if ( false === ( $ghjb_json = get_transient( 'ghjb_json' ) ) ) {
 			// It wasn't there, so regenerate the data and save the transient
 			// api call to get jobs with callback
@@ -355,7 +369,7 @@ class Greenhouse_Job_Board_Public {
 		$ghjb_html .=  $ghjb_jobs;
 		$ghjb_html .= ';ghjb_json = ';
 		$ghjb_html .=  $ghjb_json;
-		$ghjb_html .= ';</script>';
+		$ghjb_html .= ';greenhouse_jobs(ghjb_json, "#greenhouse-job-board_' . $jbid . '");</script>';
 		
 		
 		
